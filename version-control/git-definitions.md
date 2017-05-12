@@ -13,3 +13,5 @@
   * A good commit message is one that clearly states what change was made to the file. If it is the initial commit then a good message may be "initial commit."
 * What is a merge conflict?
   * A merge conflict is when Git cannot identify the proper way to merge. This can happen when 2 people are working on the same line of code and Git is not able to determine which user's code to use. You then have to manually decide which line of code in the conflict to choose. There are many ways to correct the conflict, one of which is using the syntax "git mergetool" in your command line to open a GUI to help you more easily visualize the conflict and correct the change.
+
+* I am making a slight change to this file for 1.5 Release 2 to tag my teacher.
