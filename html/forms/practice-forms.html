@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cat Adoption Form</title>
+</head>
+<body>
+  <form name="cat-adopt" action="success.html" method="post">
+    <fieldset>
+      <div>
+        <label>Adopter's Name:</label>
+        <input type="text" name="fullname" placeholder="John Doe">
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="email" name="email" placeholder="me@catlovers.com">
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="********">
+      </div>
+    </fieldset>
+    <fieldset>
+      <div>
+        <label>Indoor/Outdoor Cat Preference:</label>
+        <select name="in-out-pref">
+          <option value="in">Indoor</option>
+          <option value="out">Outdoor</option>
+          <option value="inout">Indoor/Outdoor</option>
+        </select>
+      </div>
+      <div>
+        <label>Earliest Date Available to Adopt:</label>
+        <input type="date" name="date">
+      </div>
+    </fieldset>
+    <fieldset>
+      <div>
+        <input type="checkbox" name="validate" value="agree">
+        I have completed this form to the best of my knowledge to be truthful and accurate.
+      </div>
+    </fieldset>
+    <button type="submit">Adopt Now!</button>
+</body>
+</html>
