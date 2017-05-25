@@ -11,3 +11,17 @@
 .accomplishments{
   font-size: .8em;
 }
+
+/*Pseudo Selector for hovering over job list sections*/
+.job:hover{
+  background-color: yellow;
+}
+
+/*Selecting child elements for li to increase in size or change to italics for ul items only*/
+li:nth-child(2){
+  font-size: 2em;
+}
+
+ul > li:nth-child(3){
+  font-style: italic;
+}
