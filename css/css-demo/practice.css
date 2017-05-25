@@ -11,3 +11,8 @@
 .accomplishments{
   font-size: .8em;
 }
+
+/*Pseudo Selector for hovering over job list sections*/
+.job:hover{
+  background-color: yellow;
+}

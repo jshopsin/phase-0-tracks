@@ -64,3 +64,7 @@ is nested inside the contact-info section) */
 #contact-info p {
   line-height: .8;
 }
+
+section#contact-info p:last-of-type {
+  border-right: 500px;
+}
