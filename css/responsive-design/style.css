@@ -17,7 +17,8 @@ cite {
 #external-links {
   display: inline-block;
   vertical-align: top;
-  width: 200px;
+  width: 20%;
+  font-size: min(8px);
 }
 
 /* you're welcome to edit the
@@ -38,11 +39,14 @@ figcaption {
 }
 
 body {
-  width: 960px;
+  max-width: 960px;
+  min-width: 320px;
 }
 
 main {
   display: inline-block;
   vertical-align:text-top;
-  width:756px;
+  width:79.5%;
 }
+
+
