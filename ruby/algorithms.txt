@@ -1,0 +1,41 @@
+Elevator Algorithm
+
+- Ask user what floor they want to go to
+- Get answer(s) from user
+- Find the answered floor number(s) in the given buttons
+- Press the button(s) that matches the answer given by the user
+
+
+
+Real-Life Algorithm
+
+Playing Mah-jong (matching style game)
+
+1. Determine which tile(s) are stacked the tallest
+
+2. Determine which tile(s) are furthest apart horizontally
+   (in a row filled continuously with tiles touching left
+   to right) AND have at least one open side to the left or
+   right
+
+3. Find matching tiles for the tile(s) that are stacked the
+   tallest and/or are the furthest apart horizontally which
+   have at least one open side on the left or right
+
+      a. If the tiles match and are available (having at least
+         one open side on the left or right), then remove the
+         2 matching tiles from the board
+
+      b. If no tile(s) are found that match these prioritized
+         tile(s), then look for tile(s) that are available that
+         have at least one open side (left or right only) in the
+         priority of tile(s) that are either stacked the highest
+         or are the furthest apart horizontally (in a row filled
+         continuously with tiles touching left to right)
+
+            - If the tiles match and are available (having at
+              least one open side on the left or right), then
+              remove the 2 matching tiles from the board
+
+5. Repeat steps 1-4 until all tiles have been matched and removed
+   from the board
