@@ -17,4 +17,9 @@ if estimated_age.empty?
 else
   estimated_age.to_i
 end
-puts "#{hamster_name}'s estimated_age is #{estimated_age}."
+
+puts "Hamster's name: #{hamster_name}"
+puts "Volume level: #{volume_level}"
+puts "Fur color: #{fur_color}"
+puts "Candidate for adoption?: #{candidate}"
+puts "Estimated age: #{estimated_age}"
