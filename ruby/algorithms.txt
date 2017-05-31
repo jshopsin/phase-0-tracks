@@ -1,0 +1,7 @@
+Elevator Algorithm
+
+- Ask user what floor they want to go to
+- Get answer(s) from user
+- Find the answered floor number(s) in the given buttons
+- Press the button(s) that matches the answer given by the user
+
