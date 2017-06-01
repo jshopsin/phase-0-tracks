@@ -94,7 +94,7 @@ employee_number.times do
 
   # If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
 
-  elsif age_correct == false && (weres_like_garlic == false || weres_mortal == false)
+  elsif age_correct == false && !(weres_like_garlic == true || weres_mortal == true)
     puts "Probably a vampire."
 
   # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
