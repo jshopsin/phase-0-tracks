@@ -15,7 +15,7 @@ employee_number.times do
   puts "What is your name?"
   name = gets.chomp
 
-  if name == "Drake Cula" || name == "Tu Fang"
+  if name.downcase == "drake cula" || name.downcase == "tu fang"
     vamp_name = true
   else
     vamp_name = false
@@ -47,10 +47,10 @@ employee_number.times do
     garlic_bread = gets.chomp!
   end
 
-  if garlic_bread == "yes" || "y"
+  if garlic_bread.downcase == "yes" || garlic_bread.downcase == "y"
     weres_like_garlic = true
-  else garlic_bread == "no" || "n"
-    weres_like_garlic == false
+  elsif garlic_bread.downcase == "no" || garlic_bread.downcase == "n"
+    weres_like_garlic = false
   end
 
   # Check to see if the potential employee would want health insurance. Vampires are immortal and would not need health insurance.
@@ -58,15 +58,15 @@ employee_number.times do
   puts "Would you like to enroll in the company’s health insurance?"
   insurance = gets.chomp
 
-  until insurance == "yes" || insurance == "y" || insurance == "no" || insurance == "n" do
+  until insurance.downcase == "yes" || insurance.downcase == "y" || insurance.downcase == "no" || insurance.downcase == "n" do
     puts "Please answer yes or no"
     insurance = gets.chomp!
   end
 
-  if insurance == "yes" || "y"
+  if insurance.downcase == "yes" || insurance.downcase == "y"
     weres_mortal = true
-  else insurance == "no" || "n"
-    weres_mortal == false
+  elsif insurance.downcase == "no" || insurance.downcase == "n"
+    weres_mortal = false
   end
 
   # CHECK FOR SUSPICIOUS ALLERGIES
@@ -75,13 +75,13 @@ employee_number.times do
 
   puts "Do you have any allergies? Please enter one at a time and type \"done\" when finished."
   allergies = gets.chomp
-  until allergies == "done" || allergies == "sunshine"  || allergies == "sun" do
+  until allergies.downcase == "done" || allergies.downcase == "sunshine"  || allergies.downcase == "sun" do
     allergies = gets.chomp!
   end
 
   # If at any point the employee lists “sunshine” as an allergy, skip directly to the result of “Probably a vampire.” (The skip directly to result is why it's important that this is placed before the conditionals to follow.)
 
-  if allergies == "sunshine" || allergies == "sun"
+  if allergies.downcase == "sunshine" || allergies.downcase == "sun"
       puts "Probably a vampire."
 
 
@@ -116,3 +116,12 @@ employee_number.times do
 # Don't forget to end the survey loop!
 
 end
+
+
+# PLOT TWIST
+
+# At the very end, before the program exits (as in not part of the survey loop) - tell the user "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
+
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
+
+puts "Drop mic."
