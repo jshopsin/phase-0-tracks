@@ -1,84 +1,93 @@
-# Check if potential employee's name is found in the Werewolf Intelligence Bureau database of known vampires in the area.
+# Ask the user how many employees will be processed, then begin the survey process for the first employee.
 
-puts "What is your name?"
-name = gets.chomp
+puts "How many employees will be processed at this time?"
+employee_number = gets.chomp.to_i
 
-if name == "Drake Cula" || name == "Tu Fang"
-  vamp_name = true
-else
-  vamp_name = false
-end
+employee_number.times do
 
-# Check to see if potential employee knows the correct year correlated with the age they give. This is to try to trick the vampire, who is likely several hundreds of years old. If an employee gives an age and a year of birth that don’t line up mathematically, that employee might be a vampire.
+  # Check if potential employee's name is found in the Werewolf Intelligence Bureau database of known vampires in the area.
 
-current_year = 2017
+  puts "What is your name?"
+  name = gets.chomp
 
-puts "How old are you?"
-age = gets.chomp.to_i
+  if name == "Drake Cula" || name == "Tu Fang"
+    vamp_name = true
+  else
+    vamp_name = false
+  end
 
-puts "What year were you born?"
-year = gets.chomp.to_i
+  # Check to see if potential employee knows the correct year correlated with the age they give. This is to try to trick the vampire, who is likely several hundreds of years old. If an employee gives an age and a year of birth that don’t line up mathematically, that employee might be a vampire.
 
-if age == (current_year - year)
-  age_correct = true
-else
-  age_correct = false
-end
+  current_year = 2017
 
-# Check to see if potential employee would like garlic bread. Vampires hate garlic.
+  puts "How old are you?"
+  age = gets.chomp.to_i
 
-puts "Our company cafeteria serves garlic bread. Should we order some for you?"
-garlic_bread = gets.chomp
+  puts "What year were you born?"
+  year = gets.chomp.to_i
 
-until garlic_bread == "yes" || garlic_bread == "y" || garlic_bread == "no" || garlic_bread == "n" do
-  puts "Please answer yes or no"
-  garlic_bread = gets.chomp!
-end
+  if age == (current_year - year)
+    age_correct = true
+  else
+    age_correct = false
+  end
 
-if garlic_bread == "yes" || "y"
-  weres_like_garlic = true
-else garlic_bread == "no" || "n"
-  weres_like_garlic == false
-end
+  # Check to see if potential employee would like garlic bread. Vampires hate garlic.
 
-# Check to see if the potential employee would want health insurance. Vampires are immortal and would not need health insurance.
+  puts "Our company cafeteria serves garlic bread. Should we order some for you?"
+  garlic_bread = gets.chomp
 
-puts "Would you like to enroll in the company’s health insurance?"
-insurance = gets.chomp
+  until garlic_bread == "yes" || garlic_bread == "y" || garlic_bread == "no" || garlic_bread == "n" do
+    puts "Please answer yes or no"
+    garlic_bread = gets.chomp!
+  end
 
-until insurance == "yes" || insurance == "y" || insurance == "no" || insurance == "n" do
-  puts "Please answer yes or no"
-  insurance = gets.chomp!
-end
+  if garlic_bread == "yes" || "y"
+    weres_like_garlic = true
+  else garlic_bread == "no" || "n"
+    weres_like_garlic == false
+  end
 
-if insurance == "yes" || "y"
-  weres_mortal = true
-else insurance == "no" || "n"
-  weres_mortal == false
-end
+  # Check to see if the potential employee would want health insurance. Vampires are immortal and would not need health insurance.
 
-# If the employee got their age right, and is willing to eat garlic bread or sign up for insurance, the result is “Probably not a vampire.”
+  puts "Would you like to enroll in the company’s health insurance?"
+  insurance = gets.chomp
 
-if age_correct == true && (weres_like_garlic == true || weres_mortal == true)
-  puts "Probably not a vampire."
+  until insurance == "yes" || insurance == "y" || insurance == "no" || insurance == "n" do
+    puts "Please answer yes or no"
+    insurance = gets.chomp!
+  end
 
-  # If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
+  if insurance == "yes" || "y"
+    weres_mortal = true
+  else insurance == "no" || "n"
+    weres_mortal == false
+  end
 
-elsif age_correct == false && (weres_like_garlic == false || weres_mortal == false)
-  puts "Probably a vampire."
+  # If the employee got their age right, and is willing to eat garlic bread or sign up for insurance, the result is “Probably not a vampire.”
 
-  # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
+  if age_correct == true && (weres_like_garlic == true || weres_mortal == true)
+    puts "Probably not a vampire."
 
-elsif age_correct == false && weres_like_garlic == false && weres_mortal == false
-  puts "Almost certainly a vampire."
+    # If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
 
-  # Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
+  elsif age_correct == false && (weres_like_garlic == false || weres_mortal == false)
+    puts "Probably a vampire."
 
-elsif vamp_name == true
-  puts "Definitely a vampire."
+    # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
 
-  # Otherwise, print “Results inconclusive.”
+  elsif age_correct == false && weres_like_garlic == false && weres_mortal == false
+    puts "Almost certainly a vampire."
 
-else
-  puts "Results inconclusive."
+    # Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
+
+  elsif vamp_name == true
+    puts "Definitely a vampire."
+
+    # Otherwise, print “Results inconclusive.”
+
+  else
+    puts "Results inconclusive."
+  end
+
 end
