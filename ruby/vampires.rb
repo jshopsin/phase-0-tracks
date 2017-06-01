@@ -8,6 +8,18 @@ employee_number = gets.chomp.to_i
 
 # START SURVEY LOOP
 
+=begin
+The Control Flow Rubric shows ratings for using >, <, >= , or <=; I could use these operators by creating an until or while loop for the survey, which would look like:
+
+  counter = 1
+  until counter >= employee_number
+    ... survey loop content ...
+    counter ++
+  end
+
+But the method below seems like a cleaner way to write the loop since you don't need to define the counter variable.
+=end
+
 employee_number.times do
 
   # Check if potential employee's name is found in the Werewolf Intelligence Bureau database of known vampires in the area.
