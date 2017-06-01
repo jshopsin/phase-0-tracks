@@ -1,7 +1,12 @@
+# PROCESS MULTIPLE EMPLOYEES
+
 # Ask the user how many employees will be processed, then begin the survey process for the first employee.
 
 puts "How many employees will be processed at this time?"
 employee_number = gets.chomp.to_i
+
+
+# START SURVEY LOOP
 
 employee_number.times do
 
@@ -64,30 +69,50 @@ employee_number.times do
     weres_mortal == false
   end
 
+  # CHECK FOR SUSPICIOUS ALLERGIES
+
+  # Ask potential employees about their allergies, one at a time. Type "done" when finished.
+
+  puts "Do you have any allergies? Please enter one at a time and type \"done\" when finished."
+  allergies = gets.chomp
+  until allergies == "done" || allergies == "sunshine"  || allergies == "sun" do
+    allergies = gets.chomp!
+  end
+
+  # If at any point the employee lists “sunshine” as an allergy, skip directly to the result of “Probably a vampire.” (The skip directly to result is why it's important that this is placed before the conditionals to follow.)
+
+  if allergies == "sunshine" || allergies == "sun"
+      puts "Probably a vampire."
+
+
+  # CONDITIONALS TO DETERMINE WEREWOLF VS VAMPIRE
+
   # If the employee got their age right, and is willing to eat garlic bread or sign up for insurance, the result is “Probably not a vampire.”
 
-  if age_correct == true && (weres_like_garlic == true || weres_mortal == true)
+  elsif age_correct == true && (weres_like_garlic == true || weres_mortal == true)
     puts "Probably not a vampire."
 
-    # If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
+  # If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
 
   elsif age_correct == false && (weres_like_garlic == false || weres_mortal == false)
     puts "Probably a vampire."
 
-    # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
+  # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
 
   elsif age_correct == false && weres_like_garlic == false && weres_mortal == false
     puts "Almost certainly a vampire."
 
-    # Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
+  # Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
 
   elsif vamp_name == true
     puts "Definitely a vampire."
 
-    # Otherwise, print “Results inconclusive.”
+  # Otherwise, print “Results inconclusive.”
 
   else
     puts "Results inconclusive."
   end
+
+# Don't forget to end the survey loop!
 
 end
