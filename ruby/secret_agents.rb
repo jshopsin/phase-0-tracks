@@ -53,7 +53,9 @@ decrypt("afe")
 
 decrypt(encrypt("swordfish"))
 
-#Nested methods do not work, so neither will this.
+# Jen's answer: Nested methods do not work when using puts, but do work when using p within the methods. By using puts, it is declaring a value of nil which causes errors in calling the outside (while the inside method still works). When using p, it is printing the actual value of the method rather than calling the method nil.
+
+# Mark's answer: Puts should not be used for the function, as it does a number of things that renders the outside method nil. P, rather, can call the outside method with the method inside. So it works.
 
 
 # RELEASE 5 - ADD AN INTERFACE
