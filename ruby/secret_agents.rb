@@ -8,19 +8,17 @@
 
 def encrypt(password)
   index = 0
-  while index < password.length
+  while index < password.length do
     if password[index] == " "
-      print " "
+      password[index] = " "
     elsif password[index] == "z"
       password[index] = "a"
-      #password.delete!("z")
-      #zed -> aee
     else
       password[index] = password[index].next
     end
     index += 1
   end
-  puts password
+  p password
 end
 
 encrypt("abc")
@@ -35,28 +33,28 @@ encrypt("zed")
 #The expected output is the string with each
 #letter changed to the previous letter.
 
-def decrypt(password)
+def decrypt(d_password)
+  index = 0
   alphabet = "abcdefghijklmnopqrstuvwxyz"
-  i = 0
-  while i < password.length
-    if password[i] == " "
-      print " "
+  while index < d_password.length
+    if d_password[index] == " "
+      d_password[index] = " "
     else
-      password_letter = password[i]
-      a = alphabet.index(password_letter)
-      print alphabet[a - 1]
+      a = alphabet.index(d_password[index])
+      d_password[index] = alphabet[a - 1]
     end
-    i += 1
+    index += 1
   end
-  puts " "
+  p d_password
 end
 
 decrypt("bcd")
 decrypt("afe")
 
-# decrypt(encrypt("swordfish"))
+decrypt(encrypt("swordfish"))
 
 #Nested methods do not work, so neither will this.
+
 
 # RELEASE 5 - ADD AN INTERFACE
 
