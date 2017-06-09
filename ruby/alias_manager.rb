@@ -38,7 +38,7 @@ def spy_name(name)
       cons_index = consonants.index(name_chars[i]).to_i
       name_chars[i] = consonants[cons_index + 1]
     end
-    i += 1
+    i ++
   end
 
   # Join the characters back together
@@ -52,10 +52,19 @@ end
 
 # RELEASE 1 - Provide a User Interface
 
-puts "What name would you like encrypted? Please enter a first and last name. You can continue to encrypt new names by hitting enter. Type quit to stop."
-answer = gets.chomp!.downcase
+names_stored = {}
 
-until answer == "quit" do
-  spy_name(answer)
-  answer = gets.chomp!.downcase
+puts "What name would you like encrypted? Please enter a first and last name. You can continue to encrypt new names by hitting enter. Type quit to stop."
+requested_name = gets.chomp!.downcase
+
+until requested_name == "quit" do
+  encrypted_name = spy_name(requested_name)
+  names_stored.store!(requested_name, encrypted_name)
+  requested_name = gets.chomp!.downcase
 end
+
+# RELEASE 2 - Store Data and Recall names that have been requested with their respective encrypted name
+
+puts "Thank you for your requested encrypted names. The following names have been encrypted:"
+
+p names_stored
