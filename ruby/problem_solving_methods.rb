@@ -58,3 +58,44 @@ def fibonacci(n)
 end
 
 fibonacci(6)
+
+# RELEASE 2 - Sort an Array:
+
+# define an array of integers
+# create a method that takes the array as the argument and returns a sorted version of that array
+# input: array
+# steps:
+  # define a variable that equals the LENGTH of the array
+  # define a boolean variable for swapped status
+  # create a loop to keep repeating WHILE swapped status equals true
+    # change swapped status to false
+    # create a loop for x amount of times and x is the length of the array - 1 (this - 1 is here because arrays are zero-indexed)
+      # IF the value of one index is greater than the value of the next index:
+        # switch the value of that index with the value of the next index
+        # change swapped status to true
+      # END - ending if statement
+    # END - ending .times loop
+  # END - ending until loop
+# END - ending method
+
+# output: array
+
+
+array = [2,5,1,9,3,6]
+
+def bubble_sort(array)
+  x = array.length
+  swapped = true
+  while swapped do
+    swapped = false
+    (x-1).times do |i|
+      if array[i] > array[i+1]
+        array[i], array[i+1] = array[i+1], array[i]
+        swapped = true
+      end
+    end
+  end
+  array
+end
+
+p bubble_sort(array)
