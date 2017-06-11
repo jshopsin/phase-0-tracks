@@ -7,19 +7,67 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # printing each item in the array separated by an asterisk
 # ----
 
+zombie_apocalypse_supplies.map { |i| print "#{i} * " }
+
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
+
+def sort(array)
+  x = array.length
+  swapped = true
+  while swapped do
+    swapped = false
+    (x-1).times do |i|
+      if array[i][0].downcase > array[i+1][0].downcase
+        array[i], array[i+1] = array[i+1], array[i]
+        swapped = true
+      end
+    end
+  end
+  p array
+end
+
+sort(zombie_apocalypse_supplies)
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
 # For instance: are boots in your list of supplies?
 # ----
 
+def find(array, item)
+  found = true
+  while found do
+    array.length.times do |i|
+      found = false
+      if array[i].downcase == item
+        found = true
+      end
+    end
+  end
+  item.capitalize!
+  if found
+    puts "#{item} is in the array."
+  else puts "#{item} is not in the array."
+  end
+end
+
+p find(zombie_apocalypse_supplies, "boots")
+
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
 # leaving only 5. Do not use any special built-in methods.
 # ----
+
+def num_items(arr, num)
+  until arr.length == num do
+    arr.delete_at(-1)
+  end
+  p arr
+end
+
+num_items(zombie_apocalypse_supplies, 5)
+
 
 # 5. You found another survivor! This means you can combine your supplies.
 # Create a new combined supplies list out of your zombie_apocalypse_supplies
@@ -29,6 +77,13 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 other_survivor_supplies = [ "warm clothes", "rations", "compass", "camp stove",
                             "solar battery", "flashlight"]
 # ----
+
+combined_supplies = (zombie_apocalypse_supplies << other_survivor_supplies).flatten!.uniq!
+
+sort(combined_supplies)
+
+
+=begin
 
 # Hash Drills
 
@@ -69,3 +124,4 @@ extinct_animals = {
 # Find the built-in method that helps you accomplish this in the Ruby documentation
 # for Hashes.
 # ----
+=end
