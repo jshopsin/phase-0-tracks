@@ -69,7 +69,7 @@ def swap_consonants (name)
   vowels = {"a" => "e","e" => "i","i" => "o","o" => "u","u" => "a"}
   name_chars = name.chars
   name_chars.map! {|i|
-    if vowels.has_key?(i) == true
+    if vowels.has_key?(i)
       i
     elsif i == "z"
       i = "b"
