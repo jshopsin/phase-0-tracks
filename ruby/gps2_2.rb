@@ -48,35 +48,35 @@ end
 
 def add_item(list, item, quantity)
   list[item] = quantity
-  p list
 end
 
 def remove_item(list, item)
   list.delete(item)
-  p list
 end
 
 def update_quantity(list, item, quantity)
-  list[item] = quantity
-  p list
+  if list.include?(item)
+    list[item] = quantity
+  end
 end
-
-# Method to print a list and make it look pretty
-# input: list
-# steps:
-  # print each item and quanitity from the hash
-# output: pretty list
 
 def print_list(list)
-  p list
+  list.each do |item, quantity|
+    item = item.split.map(&:capitalize).join(' ')
+    puts "#{item}: #{quantity}"
+  end
 end
 
-grocery_list = create_list("apples oranges bananas salmon")
+grocery_list = create_list("")
 
-add_item(grocery_list, "cheese", 5)
+p add_item(grocery_list, "lemonade", 2)
+add_item(grocery_list, "tomatoes", 3)
+add_item(grocery_list, "onions", 1)
+add_item(grocery_list, "ice cream", 4)
 
-remove_item(grocery_list, "apples")
+remove_item(grocery_list, "lemonade")
 
-update_quantity(grocery_list, "cheese", 2)
+update_quantity(grocery_list, "ice cream", 1)
+update_quantity(grocery_list, "apples", 5)
 
 print_list(grocery_list)
