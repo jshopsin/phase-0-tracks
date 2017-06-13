@@ -1,5 +1,4 @@
 class Santa
-
   def initialize(name, gender, ethnicity)
     puts "Initializing Santa instance ... #{name} has been added."
     @name = name
@@ -17,6 +16,19 @@ class Santa
     puts "That was a good #{cookie}!"
   end
 
+  # setter methods
+  def gender= (new_gender)
+    @gender = new_gender
+  end
+
+  # getter methods
+  def age
+    @age
+  end
+
+  def ethnicity
+    @ethnicity
+  end
 end
 
 santas = []
