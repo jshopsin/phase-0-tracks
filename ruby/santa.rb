@@ -1,4 +1,7 @@
 class Santa
+  attr_reader :name, :age, :ethnicity, :reindeer_ranking
+  attr_accessor :gender
+
   def initialize(name, gender, ethnicity)
     puts "Initializing Santa instance ... #{name} has been added."
     @name = name
@@ -25,32 +28,6 @@ class Santa
       @reindeer_ranking.delete(reindeer)
       @reindeer_ranking << reindeer
     end
-  end
-
-  # setter methods
-  def gender= (new_gender)
-    @gender = new_gender
-  end
-
-  # getter methods
-  def name
-    @name
-  end
-
-  def gender
-    @gender
-  end
-
-  def age
-    @age
-  end
-
-  def ethnicity
-    @ethnicity
-  end
-
-  def reindeer_ranking
-    @reindeer_ranking
   end
 end
 
@@ -80,3 +57,30 @@ puts "#{santas[3].name}'s reindeer ranking is #{santas[3].reindeer_ranking}."
 
 # puts santa.speak
 # puts santa.eat_milk_and_cookies("Chocolate Chip")
+
+# RELEASE 2's Getter and Setter methods that were removed in RELEASE 3's Refactoring with attr_reader and attr_accessor
+  # setter methods
+  #   def gender= (new_gender)
+  #     @gender = new_gender
+  #   end
+
+  # getter methods
+  #   def name
+  #     @name
+  #   end
+
+  #   def gender
+  #     @gender
+  #   end
+
+  #   def age
+  #     @age
+  #   end
+
+  #   def ethnicity
+  #     @ethnicity
+  #   end
+
+  #   def reindeer_ranking
+  #     @reindeer_ranking
+  #   end
