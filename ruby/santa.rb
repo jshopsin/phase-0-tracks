@@ -1,6 +1,6 @@
 class Santa
-  attr_reader :name, :age, :ethnicity, :reindeer_ranking
-  attr_accessor :gender
+  attr_reader :reindeer_ranking
+  attr_accessor :name, :gender, :age, :ethnicity
 
   def initialize(name, gender, ethnicity)
     puts "Initializing Santa instance ... #{name} has been added."
@@ -31,14 +31,23 @@ class Santa
   end
 end
 
-santas = []
+def create_santas(num_of_santas)
+  example_names = ["Sophia", "Noah", "Emma", "Liam", "Olivia", "Ava", "Isabella", "Mia", "Elijah", "Mason", "Michael", "Aiden", "James", "Jacob", "Logan", "Lucas", "Matthew", "Benjamin", "Ethan", "William", "Alexander", "Jayden", "Daniel", "Charlotte", "Oliver", "Carter", "Abigail", "Amelia", "Sebastian", "Joseph", "Harper", "David", "Anthony", "Madison", "Jackson", "Gabriel", "Julian", "Emily", "Dylan", "Christopher", "Grayson", "Samuel", "Luke", "Josiah", "Evelyn", "Wyatt", "Aria", "Christian", "Joshua", "Jaxon", "Ryan", "Sofia", "Andrew", "Isaiah", "Isaac", "Victoria", "Nathan", "John", "Elizabeth", "Scarlett", "Owen", "Caleb", "Layla", "Ella", "Camila", "Mateo", "Zoey", "Eli", "Landon", "Aaron", "Hunter", "Jeremiah", "Chloe", "Adrian", "Levi", "Henry", "Cameron", "Thomas", "Skylar", "Skye", "Brayden", "Brandon", "Lincoln", "Jack", "Lily", "Nicholas", "Brooklyn", "Penelope", "Grace", "Aaliyah", "Jonathan", "Dominic", "Mila", "Connor", "Jaxson", "Jordan", "Bryson", "Robert", "Lillian", "Natalie", "Charles", "Xavier"]
+  example_genders = ["female", "male", "bigender", "cisgender", "transgender", "genderqueer"]
+  example_ethnicities = ["Caucasian","Latino", "Japanese", "Chinese", "Korean", "Elf", "Dog", "Unicorn", "Pirate", "British", "Indian", "Israeli", "Taiwanese", "Filipino", "German", "Irish", "Italian", "Lithuanian", "Norwegian", "Punjabi", "Portuguese", "Russian", "Scottish", "Turkish", "Vietnamese", "Welsh"]
+  example_age = (0..140).to_a
+  santas = []
+  num_of_santas.times do |i|
+    santas << Santa.new(example_names.sample,example_genders.sample, example_ethnicities.sample)
+    santas[i].age = example_age.sample
+    puts "Created new Santa: #{santas[i].name} is #{santas[i].gender}, #{santas[i].ethnicity} and is #{santas[i].age} years old."
+  end
+  santas
+end
 
-santas << Santa.new("Shirley","female", "N/A")
-santas << Santa.new("Hampton","male", "White")
-santas << Santa.new("Rudolph","male", "Dog")
-santas << Santa.new("Lauren","bigender", "Japanese")
-santas << Santa.new("Hugh","male", "English")
-santas << Santa.new("Sarah","female", "Elf")
+santas = create_santas(100)
+
+# p santas
 
 santas[1].gender = "jock male"
 santas[1].celebrate_birthday
@@ -50,6 +59,15 @@ puts "#{santas[2].name}'s reindeer ranking is #{santas[2].reindeer_ranking}."
 
 santas[3].get_mad_at("Hershel")
 puts "#{santas[3].name}'s reindeer ranking is #{santas[3].reindeer_ranking}."
+
+
+
+# santas << Santa.new("Shirley","female", "N/A")
+# santas << Santa.new("Hampton","male", "White")
+# santas << Santa.new("Rudolph","male", "Dog")
+# santas << Santa.new("Lauren","bigender", "Japanese")
+# santas << Santa.new("Hugh","male", "English")
+# santas << Santa.new("Sarah","female", "Elf")
 
 # p santas
 
