@@ -7,7 +7,8 @@ class Santa
     @name = name
     @gender = gender
     @ethnicity = ethnicity
-    @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+    @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer",
+      "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
     @age = 0
   end
 
@@ -32,15 +33,44 @@ class Santa
 end
 
 def create_santas(num_of_santas)
-  example_names = ["Sophia", "Noah", "Emma", "Liam", "Olivia", "Ava", "Isabella", "Mia", "Elijah", "Mason", "Michael", "Aiden", "James", "Jacob", "Logan", "Lucas", "Matthew", "Benjamin", "Ethan", "William", "Alexander", "Jayden", "Daniel", "Charlotte", "Oliver", "Carter", "Abigail", "Amelia", "Sebastian", "Joseph", "Harper", "David", "Anthony", "Madison", "Jackson", "Gabriel", "Julian", "Emily", "Dylan", "Christopher", "Grayson", "Samuel", "Luke", "Josiah", "Evelyn", "Wyatt", "Aria", "Christian", "Joshua", "Jaxon", "Ryan", "Sofia", "Andrew", "Isaiah", "Isaac", "Victoria", "Nathan", "John", "Elizabeth", "Scarlett", "Owen", "Caleb", "Layla", "Ella", "Camila", "Mateo", "Zoey", "Eli", "Landon", "Aaron", "Hunter", "Jeremiah", "Chloe", "Adrian", "Levi", "Henry", "Cameron", "Thomas", "Skylar", "Skye", "Brayden", "Brandon", "Lincoln", "Jack", "Lily", "Nicholas", "Brooklyn", "Penelope", "Grace", "Aaliyah", "Jonathan", "Dominic", "Mila", "Connor", "Jaxson", "Jordan", "Bryson", "Robert", "Lillian", "Natalie", "Charles", "Xavier"]
-  example_genders = ["female", "male", "bigender", "cisgender", "transgender", "genderqueer"]
-  example_ethnicities = ["Caucasian","Latino", "Japanese", "Chinese", "Korean", "Elf", "Dog", "Unicorn", "Pirate", "British", "Indian", "Israeli", "Taiwanese", "Filipino", "German", "Irish", "Italian", "Lithuanian", "Norwegian", "Punjabi", "Portuguese", "Russian", "Scottish", "Turkish", "Vietnamese", "Welsh"]
+  example_names = ["Sophia",    "Noah",     "Emma",      "Liam",
+    "Olivia",      "Ava",       "Isabella", "Mia",       "Elijah",
+    "Mason",       "Michael",   "Aiden",    "James",     "Jacob",
+    "Logan",       "Lucas",     "Matthew",  "Benjamin",  "Ethan",
+    "William",     "Alexander", "Jayden",   "Daniel",    "Charlotte",
+    "Oliver",      "Carter",    "Abigail",  "Amelia",    "Sebastian",
+    "Joseph",      "Harper",    "David",    "Anthony",   "Madison",
+    "Jackson",     "Gabriel",   "Julian",   "Emily",     "Dylan",
+    "Christopher", "Grayson",   "Samuel",   "Luke",      "Josiah",
+    "Evelyn",      "Wyatt",     "Aria",     "Christian", "Joshua",
+    "Jaxon",       "Ryan",      "Sofia",    "Andrew",    "Isaiah",
+    "Isaac",       "Victoria",  "Nathan",   "John",      "Elizabeth",
+    "Scarlett",    "Owen",      "Caleb",    "Layla",     "Ella",
+    "Camila",      "Mateo",     "Zoey",     "Eli",       "Landon",
+    "Aaron",       "Hunter",    "Jeremiah", "Chloe",     "Adrian",
+    "Levi",        "Henry",     "Cameron",  "Thomas",    "Skylar",
+    "Skye",        "Brayden",   "Brandon",  "Lincoln",   "Jack",
+    "Lily",        "Nicholas",  "Brooklyn", "Penelope",  "Grace",
+    "Aaliyah",     "Jonathan",  "Dominic",  "Mila",      "Connor",
+    "Jaxson",      "Jordan",    "Bryson",   "Robert",    "Lillian",
+    "Natalie",     "Charles",   "Xavier",   "June",      "Jessica"]
+
+  example_genders = ["female",      "male",   "bigender",   "cisgender",
+                     "transgender", "genderqueer"]
+
+  example_ethnicities = [      "Caucasian",  "Latino",  "Japanese",
+    "Chinese",   "Korean",     "Elf",        "Dog",     "Unicorn",
+    "Pirate",    "British",    "Indian",     "Israeli", "Taiwanese",
+    "Filipino",  "German",     "Irish",      "Italian", "Lithuanian",
+    "Norwegian", "Punjabi",    "Portuguese", "Russian", "Scottish",
+    "Turkish",   "Vietnamese", "Welsh"]
+
   example_age = (0..140).to_a
   santas = []
   num_of_santas.times do |i|
     santas << Santa.new(example_names.sample,example_genders.sample, example_ethnicities.sample)
     santas[i].age = example_age.sample
-    puts "Created new Santa: #{santas[i].name} is #{santas[i].gender}, #{santas[i].ethnicity} and is #{santas[i].age} years old."
+    puts "#{santas[i].name} is #{santas[i].gender}, #{santas[i].ethnicity} and is #{santas[i].age} years old."
   end
   santas
 end
