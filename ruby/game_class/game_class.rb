@@ -91,8 +91,7 @@ class User
 end
 
 class Game
-  attr_reader :phrase_correct, :guess_limit
-  attr_accessor :phrase_guess, :phrase_letters, :letters_guessed, :guess_count, :game_over
+  attr_accessor :phrase_correct, :phrase_guess, :phrase_letters, :letters_guessed, :guess_count, :guess_limit, :game_over
 
   def initialize
     @phrase_correct = ""
@@ -105,8 +104,12 @@ class Game
   end
 
   def given_spaces(phrase)
+    p "phrase:"
+    p phrase
     @phrase_correct = phrase.gsub!(/./) {|x| x + " "}.downcase
-    @phrase_guess = phrase_correct.gsub!(/[abcdefghijklmnopqrstuvwxyz]/, "_")
+    p "phrase correct:"
+    p @phrase_correct
+    @phrase_guess = phrase_correct.gsub(/[abcdefghijklmnopqrstuvwxyz]/, "_")
     @phrase_letters << phrase_correct.split('').uniq
     @phrase_letters.flatten!.delete(" ")
     @guess_limit = (phrase_letters.length) * 3
@@ -114,15 +117,36 @@ class Game
   end
 
   def find_index(letter)
-    @phrase_correct.split('')
+    # letter_indexes = []
+    # @phrase_correct.each_char.each_with_index.inject([]) do |char, i|
+    #   letter_indexes << i if char == letter
+    # end
+
     letter_indexes = []
-    counter_index = 0
-    while counter_index < @phrase_correct.length
-      if @phrase_correct[counter_index] == letter
-        letter_indexes << counter_index
+    p "phrase correct:"
+    p @phrase_correct
+    @phrase_correct.split("").map!.with_index do |char, i|
+      if @phrase_correct[i] == letter
+        letter_indexes << i
       end
-      counter_index += 1
     end
+
+    # check_phrase = @phrase_correct.split('')
+    # letter_indexes = []
+    # x = check_phrase.length
+    # (x-1).times do |i|
+    #   if check_phrase[i] == letter
+    #      letter_indexes.push(i)
+    #   end
+    # end
+
+    # counter_index = 0
+    # while counter_index < @phrase_correct.length
+    #   if @phrase_correct[counter_index] == letter
+    #     letter_indexes.push(counter_index)
+    #   end
+    #   counter_index += 1
+    # end
     letter_indexes
   end
 
