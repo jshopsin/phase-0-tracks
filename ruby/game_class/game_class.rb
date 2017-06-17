@@ -117,50 +117,27 @@ class Game
   end
 
   def find_index(letter)
-    # letter_indexes = []
-    # @phrase_correct.each_char.each_with_index.inject([]) do |char, i|
-    #   letter_indexes << i if char == letter
-    # end
-
     letter_indexes = []
-    p "phrase correct:"
-    p @phrase_correct
-    @phrase_correct.split("").map!.with_index do |char, i|
+    @phrase_correct.split("").map.with_index do |char, i|
       if @phrase_correct[i] == letter
         letter_indexes << i
       end
     end
 
-    # check_phrase = @phrase_correct.split('')
-    # letter_indexes = []
-    # x = check_phrase.length
-    # (x-1).times do |i|
-    #   if check_phrase[i] == letter
-    #      letter_indexes.push(i)
-    #   end
-    # end
-
-    # counter_index = 0
-    # while counter_index < @phrase_correct.length
-    #   if @phrase_correct[counter_index] == letter
-    #     letter_indexes.push(counter_index)
-    #   end
-    #   counter_index += 1
-    # end
     letter_indexes
   end
 
   def guess_letter(letter)
-    if @letters_guessed.index(letter) == nil
-      puts "The letter #{letter} has already been guessed."
+    if @letters_guessed.index(letter) != nil
+      p "The letter #{letter} has already been guessed."
     elsif @phrase_correct.include?(letter)
       letter_indexes = find_index(letter)
-      # letter_indexes.each { |i| @phrase_guess[i] = letter }
-      # @phrase_guess[@phrase_correct.index(letter)] = letter
-      # @phrase_guess =
+      letter_indexes.each do |i|
+        @phrase_guess[i] = letter
+        @letters_guessed << letter
+      end
+      @phrase_guess
     end
-    @letters_guessed << letter
-    @phrase_guess
   end
 
 end
