@@ -26,4 +26,14 @@ describe "game_class" do
     expect(game.guess_letter("h")).to eq "h _ _ _ _   _ _ _ _ _ "
     expect(game.guess_letter("h")).to eq "The letter h has already been guessed."
   end
+
+  it "multiple guesses that together make the correct phrase" do
+    expect(game.guess_letter("h")).to eq "h _ _ _ _   _ _ _ _ _ "
+    expect(game.guess_letter("e")).to eq "h e _ _ _   _ _ _ _ _ "
+    expect(game.guess_letter("l")).to eq "h e l l _   _ _ _ l _ "
+    expect(game.guess_letter("o")).to eq "h e l l o   _ o _ l _ "
+    expect(game.guess_letter("w")).to eq "h e l l o   w o _ l _ "
+    expect(game.guess_letter("r")).to eq "h e l l o   w o r l _ "
+    expect(game.guess_letter("d")).to eq "You win! Great guesses! The correct answer is: h e l l o   w o r l d ."
+  end
 end

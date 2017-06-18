@@ -134,22 +134,20 @@ class Game
       letter_indexes = find_index(letter)
       letter_indexes.each do |i|
         @phrase_guess[i] = letter
-        @letters_guessed << letter
       end
-      @phrase_guess
+
+      if @phrase_guess == @phrase_correct
+        @game_over = true
+        p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
+      else
+        @letters_guessed << letter
+        @phrase_guess
+      end
     end
   end
-
 end
 
 
-    # ELSE
-      # IF letter is included in phrase
-        # find the indexes that the letter is included in phrase_correct
-        # in the phrase_guess string - replace the underscore with the guessed letter at the same index(es) where the letter is found in phrase_correct
-      # ELSE
-        # tell user the letter is not in the phrase and to continue guessing
-      # guess_counter += 1
       # IF phrase_correct == phrase_guess
         # game_over = true
         # tell user “You win! Great guesses!!”
