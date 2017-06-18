@@ -67,7 +67,7 @@
 # create a computer array of random phrases to choose from
 # ask for phrase_guesser’s user name
 # ask for phrase_giver’s user name or type computer
-# define a wrapping method that combines the methods within the game class:
+# call all the methods:
   # call method to ask for provided phrase
   # REPEAT WHILE the game is NOT over
     # ask user if they want to guess a letter or guess the whole phrase
@@ -224,18 +224,3 @@ until game.game_over == true
     puts "Unexpected input..."
   end
 end
-
-
-
-# define a wrapping method that combines the methods within the game class:
-  # call method to ask for provided phrase
-  # REPEAT WHILE the game is NOT over
-    # ask user if they want to guess a letter or guess the whole phrase
-    # IF the guesser wants to guess a letter:
-      # call method to guess a single letter
-    # ELSIF the guesser wants to guess the phrase:
-      # call method to guess a phrase
-  # tell user they have used _ number of guesses and have _ number of guesses remaining
-
-# initiate new game class
-# call wrapping method on game class instance
