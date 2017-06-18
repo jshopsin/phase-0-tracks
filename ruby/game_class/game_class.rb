@@ -112,7 +112,7 @@ class Game
     @phrase_guess = phrase_correct.gsub(/[abcdefghijklmnopqrstuvwxyz]/, "_")
     @phrase_letters << phrase_correct.split('').uniq
     @phrase_letters.flatten!.delete(" ")
-    @guess_limit = (phrase_letters.length) * 3
+    @guess_limit = (phrase_letters.length) * 2
     @phrase_guess
   end
 
@@ -123,8 +123,20 @@ class Game
         letter_indexes << i
       end
     end
-
     letter_indexes
+  end
+
+  def check_status
+    if @phrase_guess == @phrase_correct
+      @game_over = true
+      p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
+    elsif @guess_count >= @guess_limit
+      @game_over = true
+      p "You used up all your guesses... Game Over!! The correct answer is: #{@phrase_correct}."
+    else
+      @game_over = false
+      @phrase_guess
+    end
   end
 
   def guess_letter(letter)
@@ -135,22 +147,19 @@ class Game
       letter_indexes.each do |i|
         @phrase_guess[i] = letter
       end
-
-      if @phrase_guess == @phrase_correct
-        @game_over = true
-        p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
-      else
-        @letters_guessed << letter
-        @phrase_guess
-      end
+      @guess_count += 1
+      @letters_guessed << letter
+      p @letters_guessed
+      check_status
+    elsif !@phrase_correct.include?(letter)
+      @game_over = false
+      @guess_count += 1
+      @letters_guessed << letter
+      check_status
     end
   end
 end
 
-
-      # IF phrase_correct == phrase_guess
-        # game_over = true
-        # tell user “You win! Great guesses!!”
       #ELSIF guess_counter >= guess_limit
         # game_over = true
         # tell user “Game Over!! Too bad… the correct phrase is <phrase>.”
