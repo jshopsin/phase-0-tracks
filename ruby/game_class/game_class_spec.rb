@@ -55,4 +55,12 @@ describe "game_class" do
     expect(game.guess_letter("m")).to eq "h e l l _   _ _ _ l d "
     expect(game.guess_letter("n")).to eq "You used up all your guesses... Game Over!! The correct answer is: h e l l o   w o r l d ."
   end
+
+  it "takes a phrase and see's if it's correct" do
+    expect(game.guess_phrase("Hello World")).to eq "You win! Great guesses! The correct answer is: h e l l o   w o r l d ."
+  end
+
+  it "takes a phrase and see's if it's correct" do
+    expect(game.guess_phrase("Jello World")).to eq "That is not the correct phrase."
+  end
 end

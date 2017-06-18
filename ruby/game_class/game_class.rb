@@ -149,7 +149,6 @@ class Game
       end
       @guess_count += 1
       @letters_guessed << letter
-      p @letters_guessed
       check_status
     elsif !@phrase_correct.include?(letter)
       @game_over = false
@@ -158,11 +157,29 @@ class Game
       check_status
     end
   end
+
+  def guess_phrase(phrase)
+    phrase = phrase.gsub!(/./) {|x| x + " "}.downcase
+    if phrase == @phrase_correct
+      @game_over = true
+      p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
+    else
+      @game_over = false
+      @guess_count += 1
+      p "That is not the correct phrase."
+    end
+  end
 end
 
-      #ELSIF guess_counter >= guess_limit
-        # game_over = true
-        # tell user “Game Over!! Too bad… the correct phrase is <phrase>.”
-      # ELSE
-        # game_over = false
-  # output - phrase_guess string (revised with letters added if guessed correctly)
+
+# create method to allow guesser to guess the whole phrase
+  # input - phrase_guess string
+  # steps:
+    # ask user for phrase
+    # IF phrase = phrase_correct
+      # game_over = true
+      # tell user “You win! Great guesses!!”
+    # ELSE
+      # game_over = false
+    # guess_counter += 1
+  # output - phrase_guess string
