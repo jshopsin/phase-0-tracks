@@ -81,9 +81,10 @@
 # call wrapping method on game class instance
 
 
+# BUSINESS LOGIC
+
 class User
-  attr_accessor
-    :name
+  attr_accessor :name
 
   def initialize(name)
     @name = name
@@ -104,15 +105,15 @@ class Game
   end
 
   def given_spaces(phrase)
-    p "phrase:"
-    p phrase
     @phrase_correct = phrase.gsub!(/./) {|x| x + " "}.downcase
-    p "phrase correct:"
-    p @phrase_correct
     @phrase_guess = phrase_correct.gsub(/[abcdefghijklmnopqrstuvwxyz]/, "_")
     @phrase_letters << phrase_correct.split('').uniq
     @phrase_letters.flatten!.delete(" ")
-    @guess_limit = (phrase_letters.length) * 2
+    if phrase_letters.length > 10
+      @guess_limit = 20
+    else
+      @guess_limit = (phrase_letters.length) * 2
+    end
     @phrase_guess
   end
 
@@ -129,30 +130,38 @@ class Game
   def check_status
     if @phrase_guess == @phrase_correct
       @game_over = true
-      p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
+      p "You win! Great guesses!"
+      p "The correct answer is: #{@phrase_correct}."
+      p "You guessed this in #{@guess_count} total guesses out of the alloted #{@guess_limit} guesses."
     elsif @guess_count >= @guess_limit
       @game_over = true
       p "You used up all your guesses... Game Over!! The correct answer is: #{@phrase_correct}."
     else
       @game_over = false
-      @phrase_guess
+      p @phrase_guess
+      puts " "
     end
   end
 
   def guess_letter(letter)
     if @letters_guessed.index(letter) != nil
       p "The letter #{letter} has already been guessed."
+      p @phrase_guess
+      p " "
     elsif @phrase_correct.include?(letter)
       letter_indexes = find_index(letter)
       letter_indexes.each do |i|
         @phrase_guess[i] = letter
       end
       @guess_count += 1
+      p "You have guessed #{@guess_count} times out of #{@guess_limit} total alloted guesses."
       @letters_guessed << letter
       check_status
     elsif !@phrase_correct.include?(letter)
       @game_over = false
       @guess_count += 1
+      p "The letter #{letter} is not in the phrase."
+      p "You have guessed #{@guess_count} times out of #{@guess_limit} total alloted guesses."
       @letters_guessed << letter
       check_status
     end
@@ -162,7 +171,9 @@ class Game
     phrase = phrase.gsub!(/./) {|x| x + " "}.downcase
     if phrase == @phrase_correct
       @game_over = true
-      p "You win! Great guesses! The correct answer is: #{@phrase_correct}."
+      p "You win! Great guesses!"
+      p "The correct answer is: #{@phrase_correct}."
+      p "You guessed this in #{@guess_count} total guesses out of the alloted #{@guess_limit} guesses."
     else
       @game_over = false
       @guess_count += 1
@@ -171,15 +182,60 @@ class Game
   end
 end
 
+# UI
 
-# create method to allow guesser to guess the whole phrase
-  # input - phrase_guess string
-  # steps:
-    # ask user for phrase
-    # IF phrase = phrase_correct
-      # game_over = true
-      # tell user “You win! Great guesses!!”
-    # ELSE
-      # game_over = false
-    # guess_counter += 1
-  # output - phrase_guess string
+phrases = ["Hello World", "The World is Flat", "I'm with stupid", "Do not disturb", "Love your enemies", "Save water, drink beer", "No trespassing", "Born this way", "Down to earth", "Love Birds", "Short end of the stick", "up in arms", "like father like son", "on the same page", "curiosity killed the cat", "every cloud has a silver lining", "ugly duckling", "no-brainer", "quick on the draw", "keep your shirt on", "keep calm and carry on", "drawing a blank", "it's raining cats and dogs", "happy as a clam", "go out on a limb", "back to the drawing board", "dropping like flies", "barking up the wrong tree", "quality time", "under the weather", "know the ropes", "on cloud nine", "goody two-shoes", "burst your bubble", "wouldn't harm a fly", "you can't teach an old dog new tricks", "it's not all it's cracked up to be", "swinging for the fences", "man of few words", "cut to the chase", "quick and dirty", "talk the talk", "down to the wire", "close but no cigar", "you can't judge a book by its cover", "birds of a feather flock together", "two down, one to go", "rain on your parade", "elvis has left the building", "wake up call", "my cup of tea", "under your nose", "an arm and a leg", "roll with the punches"]
+
+puts "What is the name of the person who will be guessing letters?"
+guesser_name = gets.chomp
+guesser = User.new(guesser_name)
+
+puts "What is the name of the person who will be giving a phrase? If you would like a randomly generated phrase instead, type 'computer'."
+giver_name = gets.chomp
+giver = User.new(giver_name)
+
+if giver.name == "computer"
+  given_phrase = phrases.sample
+else
+  puts "#{guesser.name}, look away."
+  puts "#{giver.name}, type in a phrase for #{guesser.name} to guess."
+  given_phrase = gets.chomp
+  puts "Thank you, #{guesser.name} can look again."
+end
+
+game = Game.new
+phrase_guess = game.given_spaces(given_phrase)
+puts " "
+puts "Guess letters to fill in the blanks:"
+p phrase_guess
+puts " "
+until game.game_over == true
+  puts "#{guesser.name}, would you like to guess a letter or a phrase? Type 'l' for letter OR 'p' for phrase."
+  answer = gets.chomp
+  if answer == "l"
+    puts "What letter would you like to guess?"
+    letter = gets.chomp.downcase
+    phrase_guess = game.guess_letter(letter)
+  elsif answer == "p"
+    puts "What phrase would you like to guess?"
+    phrase = gets.chomp.downcase
+    phrase_guess = game.guess_phrase(phrase)
+  else
+    puts "Unexpected input..."
+  end
+end
+
+
+
+# define a wrapping method that combines the methods within the game class:
+  # call method to ask for provided phrase
+  # REPEAT WHILE the game is NOT over
+    # ask user if they want to guess a letter or guess the whole phrase
+    # IF the guesser wants to guess a letter:
+      # call method to guess a single letter
+    # ELSIF the guesser wants to guess the phrase:
+      # call method to guess a phrase
+  # tell user they have used _ number of guesses and have _ number of guesses remaining
+
+# initiate new game class
+# call wrapping method on game class instance
