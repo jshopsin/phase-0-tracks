@@ -3,6 +3,49 @@
 zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
                               "shotgun", "compass", "CB radio", "batteries"]
 
+# 3. Create a method to see if a particular item (string) is in the
+# zombie_apocalypse_supplies. Do not use any special built-in methods.
+# For instance: are boots in your list of supplies?
+
+def search_items(array, item)
+  has_value = false
+  array.each do |i|
+    if i == item
+      has_value = true
+    end
+  end
+  if has_value
+    p "The #{item} is in the zombie apocalypse supplies list."
+  else
+    p "The #{item} is not in the list."
+  end
+end
+
+search_items(zombie_apocalypse_supplies, "CB radio")
+search_items(zombie_apocalypse_supplies, "water bottle")
+
+
+zombie_apocalypse_supplies[0] = "rations"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 1. Iterate through the zombie_apocalypse_supplies array,
 # printing each item in the array separated by an asterisk
 # ----
