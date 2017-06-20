@@ -7,7 +7,7 @@ describe "game_class" do
   before(:each) do
     game.given_spaces("Hello World")
     game.phrase_correct
-    game.guess_limit
+    # game.guess_limit
   end
 
   it "replaces letters with underscores" do
