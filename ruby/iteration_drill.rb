@@ -29,23 +29,6 @@ zombie_apocalypse_supplies[0] = "rations"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 1. Iterate through the zombie_apocalypse_supplies array,
 # printing each item in the array separated by an asterisk
 # ----
