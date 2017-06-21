@@ -16,9 +16,17 @@ function reverseString(str) {
   for (var i = str.length; i >= 0; i--) {
     newStr.push(str[i])
   };
-  newStr = newStr.join('')
-  console.log(newStr)
+  newStr = newStr.join('');
+  if (str.length <= 5) {
+    console.log(newStr);
+  } else {
+    console.log("The string is too long to reverse.");
+  }
 };
 
+
+// DRIVER CODE
+
 reverseString("Hello")
+reverseString("Jupiter Rising")
 
