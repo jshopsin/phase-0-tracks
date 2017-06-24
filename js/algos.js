@@ -105,7 +105,7 @@ var randomStrings = function(num) {
   for (var i = 0; i < num; i++) {
     strings.push(outputString());
   };
-  console.log(strings);
+  return strings;
 };
 
 
@@ -122,7 +122,13 @@ includePair(horse1, horse2); // false
 includePair(bird1, bird2); // true
 
 // RELEASE 2 - DRIVER CODE
-randomStrings(2);
-randomStrings(5);
-randomStrings(8);
-randomStrings(3);
+for (var counter = 0; counter < 10; counter++) {
+  strings = randomStrings(Math.floor(Math.random() * (10) + 2));
+  // console.log(strings); <-- used for testing only
+  longestWord(strings);
+};
+
+// randomStrings(2);
+// randomStrings(5);
+// randomStrings(8);
+// randomStrings(3);
