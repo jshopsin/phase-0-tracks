@@ -47,3 +47,30 @@ SELECT * FROM flights;
 1|1345|1|San Francisco|Washington DC|11:40:00.0|12:50:00.0|true
 3|4576|2|Denver|Washington DC|08:45:00.0|09:45:00.0|true
 4|6549|4|New York|Chicago|15:20:00.0|16:20:00.0|true
+
+RELEASE 3:
+
+sqlite> SELECT departure_city, arrival_city FROM flights RIGHT JOIN airlines ON flights.airline_id=airlines.id;
+Error: RIGHT and FULL OUTER JOINs are not currently supported
+
+sqlite> SELECT departure_city, arrival_city FROM flights LEFT JOIN airlines ON flights.airline_id=airlines.id;
+San Francisco|Washington DC
+Denver|Washington DC
+New York|Chicago
+
+sqlite> SELECT departure_city, arrival_city, airline_id FROM flights LEFT JOIN airlines ON flights.airline_id=airlines.id;
+San Francisco|Washington DC|1
+Denver|Washington DC|2
+New York|Chicago|4
+
+sqlite> SELECT departure_city, arrival_city FROM flights INNER JOIN airlines ON flights.airline_id=airlines.id;
+San Francisco|Washington DC
+Denver|Washington DC
+New York|Chicago
+
+sqlite> SELECT departure_city, arrival_city, airline_id FROM flights INNER JOIN airlines ON flights.airline_id=airlines.id;
+San Francisco|Washington DC|1
+Denver|Washington DC|2
+New York|Chicago|4
+
+
