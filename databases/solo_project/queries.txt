@@ -74,3 +74,5 @@ Denver|Washington DC|2
 New York|Chicago|4
 
 
+// The right and left joins are not supported on SQLITE3.
+// INNER JOIN seems to do the same thing as JOIN.
