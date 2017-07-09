@@ -55,16 +55,41 @@ random_start_date_PMH = ['2017-11-04', '2017-11-05','2017-11-06','2017-11-07', '
 random_end_date_PMH = ['2017-11-08', '2017-11-09', '2017-11-10', '2017-11-11', '2017-11-12', '2017-11-13', '2017-11-14'].sample
 
 # add lots of fake people for testing
-50.times do
-  create_user(db, Faker::Name.name, Faker::Internet.email, "BMES", "Pheonix", random_start_date_BMES, random_end_date_BMES, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_smoker)
-end
+# 50.times do
+#   create_user(db, Faker::Name.name, Faker::Internet.email, "BMES", "Pheonix", random_start_date_BMES, random_end_date_BMES, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_smoker)
+# end
 
-50.times do
-  create_user(db, Faker::Name.name, Faker::Internet.email, "Perinatal Mental Health Conference", "Chicago", random_start_date_PMH, random_end_date_PMH, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_smoker)
-end
+# 50.times do
+#   create_user(db, Faker::Name.name, Faker::Internet.email, "Perinatal Mental Health Conference", "Chicago", random_start_date_PMH, random_end_date_PMH, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_smoker)
+# end
 
 # create a method that finds matches
+def match_user(db, email)
+  user = db.execute("SELECT * FROM users WHERE email=?", [email])
+  user_convention_name = user[0]["convention_name"]
+  user_convention_location = user[0]["convention_location"]
+  user_start_date = user[0]["start_date"]
+  user_end_date = user[0]["end_date"]
+  user_home_state = user[0]["home_state"]
+  user_smoker = user[0]["smoker"]
 
+  matches = db.execute("SELECT * FROM users WHERE email!=? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND smoker=?", [email, user_convention_name, user_convention_location, user_start_date, user_end_date, user_smoker])
+
+  puts "#{user[0]['name']}'s possible matches:"
+  matches.each do |match|
+    puts "--------------------------------------------------------------------------------------"
+    puts "#{match['name']} is attending #{match['convention_name']} in #{match['convention_location']} from #{match['start_date']} through #{match['end_date']}."
+    puts "#{match['name']} is from #{match['home_city']}, #{match['home_state']} and is #{match['age']} years old."
+    if match['smoker'] == "true"
+      puts "#{match['name']} is a smoker."
+    elsif match['smoker'] == "false"
+      puts "#{match['name']} is not a smoker."
+    end
+    puts "-------------------------------------------------------------------------------------- \n\n"
+  end
+end
+
+match_user(db, "erik_batz@schmidt.com")
 
 
 
