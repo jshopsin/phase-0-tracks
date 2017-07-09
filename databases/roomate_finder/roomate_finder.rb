@@ -10,21 +10,6 @@ require 'faker'
 db = SQLite3::Database.new("users.db")
 db.results_as_hash = true
 
-# create table
-  # values:
-    # id integer primary key
-    # name
-    # email
-    # convention_name
-    # convention_location
-    # start_date
-    # end_date
-    # home_state
-    # home_city
-    # age
-    # gender
-    # smoker
-
 create_table = <<-SQL
   CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY,
@@ -47,7 +32,7 @@ db.execute(create_table)
 # create a method to add a single user
 def create_user(db, name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker)
   user = db.execute("SELECT * FROM users WHERE email=?", [email])
-  if user.empty?
+  if user.empty?  # only create if the email address has not aready been used
     db.execute("INSERT INTO users (name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker])
   else
     puts "This email has already been added."
@@ -71,7 +56,7 @@ random_end_date_PMH = ['2017-11-08', '2017-11-09', '2017-11-10', '2017-11-11', '
 #   create_user(db, Faker::Name.name, Faker::Internet.email, "Perinatal Mental Health Conference", "Chicago", random_start_date_PMH.sample, random_end_date_PMH.sample, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_gender.sample, random_smoker.sample)
 # end
 
-# create a method that finds matches
+# create a method that finds matches - only if the given user exists in the database
 def find_user(db, email)
   user = db.execute("SELECT * FROM users WHERE email=?", [email])
   if user.empty?
@@ -86,18 +71,12 @@ def match_user(db, email)
   user_found = find_user(db, email)
   if user_found == true
     user = db.execute("SELECT * FROM users WHERE email=?", [email])
-    user_convention_name = user[0]["convention_name"]
-    user_convention_location = user[0]["convention_location"]
-    user_start_date = user[0]["start_date"]
-    user_end_date = user[0]["end_date"]
-    user_home_state = user[0]["home_state"]
-    user_gender = user[0]["gender"]
-    user_smoker = user[0]["smoker"]
+
     user_age = user[0]["age"].to_i
     match_age_min = ((user_age/10.round).to_s + 0.to_s).to_i
     match_age_max = match_age_min + 10
 
-    matches = db.execute("SELECT * FROM users WHERE email<>? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND (age BETWEEN ? AND ?) AND gender=? AND smoker=?", [email, user_convention_name, user_convention_location, user_start_date, user_end_date, match_age_min, match_age_max, user_gender, user_smoker])
+    matches = db.execute("SELECT * FROM users WHERE email<>? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND (age BETWEEN ? AND ?) AND gender=? AND smoker=?", [email, user[0]["convention_name"], user[0]["convention_location"], user[0]["start_date"], user[0]["end_date"], match_age_min, match_age_max, user[0]["gender"], user[0]["smoker"]])
 
     puts "The profile for #{user[0]['name']} shows:"
     puts "--------------------------------------------------------------------------------------"
