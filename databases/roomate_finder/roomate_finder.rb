@@ -22,6 +22,7 @@ db.results_as_hash = true
     # home_state
     # home_city
     # age
+    # gender
     # smoker
 
 create_table = <<-SQL
@@ -48,7 +49,7 @@ def create_user(db, name, email, convention_name, convention_location, start_dat
   db.execute("INSERT INTO users (name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker])
 end
 
-# random arrays needed for creating data
+# random arrays needed for creating fake data
 random_smoker = ['true', 'false'].sample
 random_gender = ['male', 'female'].sample
 random_start_date_BMES = ['2017-10-08', '2017-10-09', '2017-10-10', '2017-10-11', '2017-10-12'].sample
@@ -56,7 +57,7 @@ random_end_date_BMES = ['2017-10-12', '2017-10-13', '2017-10-14', '2017-10-15', 
 random_start_date_PMH = ['2017-11-04', '2017-11-05','2017-11-06','2017-11-07', '2017-11-08'].sample
 random_end_date_PMH = ['2017-11-08', '2017-11-09', '2017-11-10', '2017-11-11', '2017-11-12', '2017-11-13', '2017-11-14'].sample
 
-# add lots of fake people for testing
+# add lots of fake people for testing - COMMENTED OUT AFTER DATA WAS CREATED
 # 50.times do
 #   create_user(db, Faker::Name.name, Faker::Internet.email, "BMES", "Pheonix", random_start_date_BMES, random_end_date_BMES, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_gender, random_smoker)
 # end
@@ -96,15 +97,16 @@ def match_user(db, email)
   end
 end
 
-match_user(db, "rickey@mcclurehegmann.net")
-
-
-
 # create a method to send requested match
   # if interested then respond yes
   # else request is ignored and noted that match not desired
 
+
 # UI
+
 # allow user to create a profile
+
+
 # allow user to find a match
 
+match_user(db, "rickey@mcclurehegmann.net")
