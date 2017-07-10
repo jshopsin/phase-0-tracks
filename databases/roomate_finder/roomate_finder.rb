@@ -10,21 +10,6 @@ require 'faker'
 db = SQLite3::Database.new("users.db")
 db.results_as_hash = true
 
-# create table
-  # values:
-    # id integer primary key
-    # name
-    # email
-    # convention_name
-    # convention_location
-    # start_date
-    # end_date
-    # home_state
-    # home_city
-    # age
-    # gender
-    # smoker
-
 create_table = <<-SQL
   CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY,
@@ -47,7 +32,7 @@ db.execute(create_table)
 # create a method to add a single user
 def create_user(db, name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker)
   user = db.execute("SELECT * FROM users WHERE email=?", [email])
-  if user.empty?
+  if user.empty?  # only create if the email address has not aready been used
     db.execute("INSERT INTO users (name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, email, convention_name, convention_location, start_date, end_date, home_state, home_city, age, gender, smoker])
   else
     puts "This email has already been added."
@@ -71,7 +56,7 @@ random_end_date_PMH = ['2017-11-08', '2017-11-09', '2017-11-10', '2017-11-11', '
 #   create_user(db, Faker::Name.name, Faker::Internet.email, "Perinatal Mental Health Conference", "Chicago", random_start_date_PMH.sample, random_end_date_PMH.sample, Faker::Address.state, Faker::Address.city, Faker::Number.number(2), random_gender.sample, random_smoker.sample)
 # end
 
-# create a method that finds matches
+# create a method that finds matches - only if the given user exists in the database
 def find_user(db, email)
   user = db.execute("SELECT * FROM users WHERE email=?", [email])
   if user.empty?
@@ -86,18 +71,12 @@ def match_user(db, email)
   user_found = find_user(db, email)
   if user_found == true
     user = db.execute("SELECT * FROM users WHERE email=?", [email])
-    user_convention_name = user[0]["convention_name"]
-    user_convention_location = user[0]["convention_location"]
-    user_start_date = user[0]["start_date"]
-    user_end_date = user[0]["end_date"]
-    user_home_state = user[0]["home_state"]
-    user_gender = user[0]["gender"]
-    user_smoker = user[0]["smoker"]
+
     user_age = user[0]["age"].to_i
     match_age_min = ((user_age/10.round).to_s + 0.to_s).to_i
     match_age_max = match_age_min + 10
 
-    matches = db.execute("SELECT * FROM users WHERE email<>? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND (age BETWEEN ? AND ?) AND gender=? AND smoker=?", [email, user_convention_name, user_convention_location, user_start_date, user_end_date, match_age_min, match_age_max, user_gender, user_smoker])
+    matches = db.execute("SELECT * FROM users WHERE email<>? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND (age BETWEEN ? AND ?) AND gender=? AND smoker=? AND home_state=?", [email, user[0]["convention_name"], user[0]["convention_location"], user[0]["start_date"], user[0]["end_date"], match_age_min, match_age_max, user[0]["gender"], user[0]["smoker"], user[0]['home_state']])
 
     puts "The profile for #{user[0]['name']} shows:"
     puts "--------------------------------------------------------------------------------------"
@@ -111,28 +90,86 @@ def match_user(db, email)
     end
     puts "-------------------------------------------------------------------------------------- \n\n"
 
-    puts "#{user[0]['name']}'s possible matches:"
-    matches.each do |match|
-      puts "--------------------------------------------------------------------------------------"
-      puts "#{match['name']} is attending #{match['convention_name']} in #{match['convention_location']} from #{match['start_date']} through #{match['end_date']}."
-      puts "#{match['name']} is from #{match['home_city']}, #{match['home_state']}."
-      puts "#{match['name']} is #{match['gender']} and is #{match['age']} years old."
-      if match['smoker'] == "true"
-        puts "#{match['name']} is a smoker."
-      elsif match['smoker'] == "false"
-        puts "#{match['name']} is not a smoker."
+    if matches.empty?
+      puts "There are no matches for #{user[0]['gender']} attendees of #{user[0]['convention_name']} with the same dates as you that also live in the same state, are in the same age range as you and that share your smoking preference."
+      puts "Would you like to expand your search?"
+      response = gets.chomp
+      until response == "yes" || response == "no"
+        puts "Please respond 'yes' or 'no'."
+        response = gets.chomp!
       end
-      puts "-------------------------------------------------------------------------------------- \n\n"
+      if response == "yes"
+        matches = db.execute("SELECT * FROM users WHERE email<>? AND convention_name=? AND convention_location=? AND start_date=? AND end_date=? AND gender=?", [email, user[0]["convention_name"], user[0]["convention_location"], user[0]["start_date"], user[0]["end_date"], user[0]["gender"]])
+
+        puts "#{user[0]['name']}'s possible matches:"
+        matches.each do |match|
+          puts "--------------------------------------------------------------------------------------"
+          puts "#{match['name']} is attending #{match['convention_name']} in #{match['convention_location']} from #{match['start_date']} through #{match['end_date']}."
+          puts "#{match['name']} is from #{match['home_city']}, #{match['home_state']}."
+          puts "#{match['name']} is #{match['gender']} and is #{match['age']} years old."
+          if match['smoker'] == "true"
+            puts "#{match['name']} is a smoker."
+          elsif match['smoker'] == "false"
+            puts "#{match['name']} is not a smoker."
+          end
+          puts "-------------------------------------------------------------------------------------- \n\n"
+        end
+      end
+    else
+      puts "#{user[0]['name']}'s possible matches:"
+      matches.each do |match|
+        puts "--------------------------------------------------------------------------------------"
+        puts "#{match['name']} is attending #{match['convention_name']} in #{match['convention_location']} from #{match['start_date']} through #{match['end_date']}."
+        puts "#{match['name']} is from #{match['home_city']}, #{match['home_state']}."
+        puts "#{match['name']} is #{match['gender']} and is #{match['age']} years old."
+        if match['smoker'] == "true"
+          puts "#{match['name']} is a smoker."
+        elsif match['smoker'] == "false"
+          puts "#{match['name']} is not a smoker."
+        end
+        puts "-------------------------------------------------------------------------------------- \n\n"
+      end
     end
   end
 end
 
-# create a method to send requested match
-  # if interested then respond yes
-  # else request is ignored and noted that match not desired
-
 
 # UI
+
+def create_custom_user(db)
+  puts "Please answer some of the following questions so we can show you your possible matches."
+  puts "What is your name?"
+  custom_name = gets.chomp
+  puts "What is your email address?"
+  custom_email = gets.chomp
+  puts "What is the name of the convention you are attending?"
+  custom_convention_name = gets.chomp
+  puts "What is the location of the convention where you will be needing to find lodging?"
+  custom_convention_location = gets.chomp
+  puts "What day would you like to check-in to the hotel or lodging? Please answer YYYY-MM-DD."
+  custom_start_date = gets.chomp
+  puts "What day would you like to check-out of the hotel or lodging? Please answer YYYY-MM-DD."
+  custom_end_date = gets.chomp
+  puts "What state do you currently live in? Please type the full name of the state."
+  custom_home_state = gets.chomp
+  puts "What city do you currently live in?"
+  custom_home_city = gets.chomp
+  puts "What is your age?"
+  custom_age = gets.chomp
+  puts "What is your gender? Please type 'male', 'female', or 'other'."
+  custom_gender = gets.chomp
+  puts "Are you a smoker? Please type 'true' or 'false'."
+  custom_smoker = gets.chomp
+  until custom_smoker == "true" || custom_smoker == "false"
+    puts "Please answer 'true' or 'false'."
+    custom_smoker = gets.chomp!
+  end
+  puts "\n\n"
+
+  create_user(db, custom_name, custom_email, custom_convention_name, custom_convention_location, custom_start_date, custom_end_date, custom_home_state, custom_home_city, custom_age, custom_gender, custom_smoker)
+
+  match_user(db, custom_email)
+end
 
 # allow user to create a profile
 puts "Are you looking for a roomate to save some money while attending your next convention?"
@@ -158,41 +195,7 @@ until user_found_status == true
       user_found_status = true
     end
   else
-    puts "Please answer some of the following questions so we can show you your possible matches."
-    puts "What is your name?"
-    custom_name = gets.chomp
-    puts "What is your email address?"
-    custom_email = gets.chomp
-    puts "What is the name of the convention you are attending?"
-    custom_convention_name = gets.chomp
-    puts "What is the location of the convention where you will be needing to find lodging?"
-    custom_convention_location = gets.chomp
-    puts "What day would you like to check-in to the hotel or lodging? Please answer YYYY-MM-DD."
-    custom_start_date = gets.chomp
-    puts "What day would you like to check-out of the hotel or lodging? Please answer YYYY-MM-DD."
-    custom_end_date = gets.chomp
-    puts "What state do you currently live in? Please type the full name of the state."
-    custom_home_state = gets.chomp
-    puts "What city do you currently live in?"
-    custom_home_city = gets.chomp
-    puts "What is your age?"
-    custom_age = gets.chomp
-    puts "What is your gender? Please type 'male', 'female', or 'other'."
-    custom_gender = gets.chomp
-    puts "Are you a smoker? Please type 'true' or 'false'."
-    custom_smoker = gets.chomp
-    until custom_smoker == "true" || custom_smoker == "false"
-      puts "Please answer 'true' or 'false'."
-      custom_smoker = gets.chomp!
-    end
-    puts "\n\n"
-
-    create_user(db, custom_name, custom_email, custom_convention_name, custom_convention_location, custom_start_date, custom_end_date, custom_home_state, custom_home_city, custom_age, custom_gender, custom_smoker)
-
-    match_user(db, custom_email)
+    create_custom_user(db)
     user_found_status = true
   end
 end
-
-
-# match_user(db, "rickey@mcclurehegmann.net")
