@@ -92,7 +92,7 @@ def match_user(db, email)
 
     if matches.empty?
       puts "There are no matches for #{user[0]['gender']} attendees of #{user[0]['convention_name']} with the same dates as you that also live in the same state, are in the same age range as you and that share your smoking preference."
-      puts "Would you like to expand your search?"
+      puts "Would you like to expand your search? Type 'yes' or 'no'."
       response = gets.chomp
       until response == "yes" || response == "no"
         puts "Please respond 'yes' or 'no'."
