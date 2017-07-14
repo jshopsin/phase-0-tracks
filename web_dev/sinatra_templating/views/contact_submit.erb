@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thank you for your comment</title>
+</head>
+<body>
+  <h1>Thank you for your comment</h1>
+  <p>We will reply to your comment shortly.</p>
+  <br>
+  <p>Your message to us: </p>
+  <p>Name: <%= @messages[-1]['name'] %></p>
+  <p>Email: <%= @messages[-1]['email'] %></p>
+  <p>Message: <%= @messages[-1]['message'] %></p>
+  <br>
+  <a href="/contact">Contact us again</a>
+</body>
+</html>
