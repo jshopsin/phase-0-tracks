@@ -25,6 +25,7 @@ end
 
 # write a GET route that retrieves
 # all student data
+
 get '/students' do
   students = db.execute("SELECT * FROM students")
   response = ""
@@ -33,6 +34,29 @@ get '/students' do
     response << "Name: #{student['name']}<br>"
     response << "Age: #{student['age']}<br>"
     response << "Campus: #{student['campus']}<br><br>"
+  end
+  response
+end
+
+# write a GET route that searches the students database by their name
+get '/students/:name' do
+  name = params[:name]
+  name_appended = "%#{name}%"
+  p name
+  students = db.execute("SELECT * FROM students WHERE name LIKE ?", [name_appended])
+  # this was strange above, it did not work when I used the secure way of using a ?, but did work with the string interpolation
+  # so instead a made a separate variable with the string interpolation so the selection is still secure
+  # students.to_s
+  response = ""
+  if students.empty?
+    response << "There are no registered students by the name: #{name}"
+  else
+    students.each do |student|
+      response << "ID: #{student['id']}<br>"
+      response << "Name: #{student['name']}<br>"
+      response << "Age: #{student['age']}<br>"
+      response << "Campus: #{student['campus']}<br><br>"
+    end
   end
   response
 end
