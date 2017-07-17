@@ -1,0 +1,127 @@
+body {
+  background-color: lightblue;
+  max-width: 960px;
+  margin: auto;
+  font-family: Arial;
+}
+
+header > h1 {
+  position: relative;
+  padding: 20px;
+  padding-top: 8px;
+  margin: 20px;
+}
+
+#head-image {
+  z-index: -1;
+  position: absolute;
+  width: 920px;
+  padding-left: 20px;
+}
+
+main {
+  padding-top: 420px;
+}
+
+h1 {
+  font-style: bold;
+  padding-left: 20px;
+}
+
+h2 {
+  font-family: times;
+}
+
+.story-block {
+  background-color: lightgreen;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: blue;
+  border-style: dashed;
+}
+
+.text {
+  max-width: 40%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.images {
+  max-width: 58%;
+  padding: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#pages {
+  background-color: lightgreen;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: blue;
+  border-style: dashed;
+}
+
+#list {
+  background-color: lightblue;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: blue;
+  border-style: dashed;
+}
+
+#table {
+  background-color: lightblue;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: blue;
+  border-style: dashed;
+}
+
+.cat-fancier {
+  background-color: lightblue;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: blue;
+  border-style: dashed;
+}
+
+#nested-list {
+  background-color: lightblue;
+  padding: 20px;
+  margin: 20px;
+  border-width: 5px;
+  border-color: lightgreen;
+  border-style: dotted;
+}
+
+footer {
+  text-align: center;
+  background-color: lightgreen;
+  padding: 20px;
+  margin: 20px;
+}
+
+a:link {
+  color: blue;
+}
+
+a:visited {
+  color: darkred;
+}
+
+@media only screen and (max-width: 600px) {
+  .story-block {
+    background-color: lightyellow;
+  }
+  img {
+    max-width: 80%;
+  }
+  main {
+    padding-top: 100px;
+  }
+}
